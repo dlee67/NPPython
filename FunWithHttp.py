@@ -5,8 +5,9 @@ import urllib.request
 import webbrowser
 from urllib.request import Request
 
-req = Request("https://www.google.com")
-req.add_header("Accept-Language", "ko-kr")
+req = Request("https://www.naver.com/")
+req.add_header("Accept-Charset", "ASCII")
 response = urllib.request.urlopen(req)
-webbrowser.open(response.url) # Thought every language aside from Korean will be filtered out, but it didn't.
+print(response.read())
+webbrowser.open(response.url) # Thought every language aside from English will be filtered out, but it didn't.
  
