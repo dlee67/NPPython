@@ -6,6 +6,8 @@ from http.cookiejar import CookieJar
 from urllib.parse import urlparse
 from urllib.parse import urljoin, parse_qs
 from urllib.parse import quote
+from urllib.parse import urlencode
+from urllib.parse import urlunparse 
 
 cookie_jar = CookieJar() # Place to store cookies...
 # build_opener returns an instance of OpenerDirector, which is 
@@ -44,4 +46,25 @@ result=urlparse('http://docs.python.org/3/search.html? q=urlparse&area=default')
 parse_qs(result.query)
 print(result)
 print(quote("A duck?"))
+path='pypi'
+path_enc=quote(path)
+query_dict={':action': 'search', 'term:': 'Are you quite sure this is a cheese shop?'}
+query_enc=urlencode(query_dict)
+netloc="pypi.python.org"
+urlunparse(('http', netloc, path_enc, '', query_enc, ''))
+print(query_enc)
 print("Wanna compare kamehamehas?========================================")
+req=Request('http://www.google.com', method='HEAD')
+response=urllib.request.urlopen(req)
+print(response.status)
+print(response.read())
+#Well, I know a project to do now.
+#Enable this code to open a webpage with Python in the search.
+data_dict={'P': 'Python'}
+data=urlencode(data_dict).encode('utf-8')
+req=Request('http://search.debian.org/cgi-bin/omega', data)
+req.add_header('Content-Type', 'application/x-www-form-urlencode;  charset=UTF-8')
+response = urllib.request.urlopen(req)
+someFile = open("openThis.html", "w+")
+someFile.write(response.read().decode("utf-8"))
+someFile.close()
