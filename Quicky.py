@@ -1,5 +1,11 @@
 import urllib.request
-import webbrowser 
+import webbrowser
+import xml.etree.ElementTree as ET
+import xml.dom.minidom as minidom
+import json
+import paramiko
+import socket
+import ipaddress as ip
 from urllib.request import Request
 from urllib.request import build_opener, HTTPCookieProcessor
 from http.cookiejar import CookieJar
@@ -68,3 +74,24 @@ response = urllib.request.urlopen(req)
 someFile = open("openThis.html", "w+")
 someFile.write(response.read().decode("utf-8"))
 someFile.close()
+print("Wanna compare kamehamehas?=============================")
+root = ET.Element('inventory')
+cheese=ET.Element('cheese')
+cheese.attrib['id'] = 'c01'
+name=ET.SubElement(cheese, 'name')
+name.text='Caerphilly'
+root.append(cheese)
+ET.dump(root)
+print(minidom.parseString(ET.tostring(root)).toprettyxml())
+print("Wanna comapre kamehamehas?=============================")
+l = ['a', 'b', 'c']
+print(json.dumps(l))
+print("Wanna compare kamehamehas?=============================")
+ssh_client = paramiko.SSHClient()
+ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+#print(socket.gethostname()) #SICK.
+#print(socket.gethostbyname(socket.gethostname()))
+net4=ip.ip_network('10.0.1.0/24')
+print(net4.netmask)
+all_hosts=list(net4.hosts())
+print(net4.supernet())
